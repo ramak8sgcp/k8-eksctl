@@ -24,3 +24,9 @@ eksctl version
 
 # aws configuration has to install
 aws configure
+
+# to create eks cluster
+eksctl create cluster --config-file=eks.yaml
+
+# to delete eks cluster
+eksctl delete cluster --config-file=eks.yaml
