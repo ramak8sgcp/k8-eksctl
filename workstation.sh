@@ -39,6 +39,15 @@ systemctl enable docker
 usermod -aG docker ec2-user
 VALIDATE $? "Docker installation"
 
+
+
+
+# kubectl
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.31.0/2024-09-12/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+mv kubectl /usr/local/bin/kubectl
+VALIDATE $? "kubectl installation"
+
 # eksctl
 ARCH=amd64
 PLATFORM=$(uname -s)_$ARCH
@@ -49,19 +58,13 @@ eksctl version
 VALIDATE $? "eksctl installation"
 
 
-# kubectl
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.31.0/2024-09-12/bin/linux/amd64/kubectl
-chmod +x ./kubectl
-mv kubectl /usr/local/bin/kubectl
-VALIDATE $? "kubectl installation"
-
 # kubens
 git clone https://github.com/ahmetb/kubectx /opt/kubectx
 ln -s /opt/kubectx/kubens /usr/local/bin/kubens
 VALIDATE $? "kubens installation"
 
 
-Helm
+# Helm
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
