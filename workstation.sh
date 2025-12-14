@@ -49,11 +49,12 @@ mv kubectl /usr/local/bin/kubectl
 VALIDATE $? "kubectl installation"
 
 # eksctl
+# for ARM systems, set ARCH to: `arm64`, `armv6` or `armv7`
 ARCH=amd64
 PLATFORM=$(uname -s)_$ARCH
 curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
 tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
-mv /tmp/eksctl /usr/local/bin
+sudo install -m 0755 /tmp/eksctl /usr/local/bin && rm /tmp/eksctl
 eksctl version
 VALIDATE $? "eksctl installation"
 
